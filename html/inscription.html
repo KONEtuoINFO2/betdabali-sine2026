@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription Utilisateur</title>
+    <style>
+        body {
+            background-color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: #222;
+        }
+        header, footer {
+            background-color: orange;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 2em auto;
+            background: #fff;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 2em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        label {
+            display: block;
+            margin-top: 1em;
+            color: #222;
+        }
+        input[type="text"], input[type="password"], input[type="tel"] {
+            width: 100%;
+            padding: 0.5em;
+            margin-top: 0.3em;
+            border: 1px solid #222;
+            border-radius: 4px;
+        }
+        .roles {
+            margin-top: 0.5em;
+            margin-bottom: 1em;
+        }
+        .roles label {
+            display: inline-block;
+            margin-right: 1em;
+            color: #222;
+        }
+        button, .retour {
+            background: orange;
+            color: #fff;
+            border: none;
+            padding: 0.7em 1.5em;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1.5em;
+            text-decoration: none;
+            display: inline-block;
+        }
+        button:hover, .retour:hover {
+            background: #222;
+            color: orange;
+        }
+        footer {
+            margin-top: 2em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Inscription Utilisateur</h1>
+    </header>
+    <div class="container">
+        <form>
+            <label for="nom">Nom complet</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <label>Type d'utilisateur</label>
+            <div class="roles">
+                <label><input type="checkbox" name="role" value="client"> Client</label>
+                <label><input type="checkbox" name="role" value="restaurant"> Restaurant</label>
+                <label><input type="checkbox" name="role" value="admin"> Admin</label>
+            </div>
+
+            <label for="whatsapp">Numéro WhatsApp</label>
+            <input type="tel" id="whatsapp" name="whatsapp" required>
+
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirm_password">Confirmer le mot de passe</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+
+            <button type="submit">S'inscrire</button>
+            <a href="../index.html" class="retour">Retour à la page principale</a>
+        </form>
+    </div>
+    <footer>
+        &copy; 2026 Betdabali Sine. Tous droits réservés.
+    </footer>
+</body>
+</html>

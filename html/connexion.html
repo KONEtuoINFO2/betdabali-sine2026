@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - Betdabali Sine2026</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background: orange;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #fff;
+            border: 2px solid orange;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #0002;
+            padding: 2em;
+        }
+        h2 {
+            color: orange;
+            text-align: center;
+        }
+        label {
+            color: #222;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 0.7em;
+            margin: 0.5em 0 1em 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button, .signup-link {
+            background: orange;
+            color: #fff;
+            border: none;
+            padding: 0.7em 1.5em;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 1em;
+        }
+        .signup-link {
+            display: block;
+            text-align: center;
+            margin-top: 1em;
+            background: none;
+            color: orange;
+            text-decoration: underline;
+            border: none;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Betdabali Sine2026</h1>
+    </header>
+    <div class="container">
+        <h2>Connexion</h2>
+        <form id="loginForm">
+            <label for="login">Login</label>
+            <input type="text" id="login" name="login" required>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Se connecter</button>
+        </form>
+        <button class="signup-link" onclick="window.location.href='inscription.html'">S'inscrire</button>
+        <div id="errorMsg" class="error"></div>
+    </div>
+    <footer>
+        &copy; 2026 Betdabali Sine
+    </footer>
+    <script>
+        document.getElementById('loginForm').onsubmit = function(e) {
+            e.preventDefault();
+            const login = document.getElementById('login').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            // Vérification des identifiants
+            if (login === 'betdabaliadmin' && password === 'admin26') {
+                // Redirection admin
+                window.location.href = '../index.html?role=admin';
+            } else if (login === 'clientbatdabali' && password === 'batdabali2026') {
+                // Redirection client
+                window.location.href = '../index.html?role=client';
+            } else {
+                errorMsg.textContent = "Identifiants incorrects.";
+            }
+        };
+    </script>
+</body>
+</html>
