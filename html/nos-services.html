@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fafafa; }
-        header, footer { background: #222; color: #fff; padding: 20px 0; text-align: center; }
+        header, footer { background: #d2691e; color: #fff; padding: 20px 0; text-align: center; }
         .container { max-width: 900px; margin: 30px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);}
-        h1 { color: #d2691e; }
+        h1 { color: #fff; }
         .services { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 30px; }
         .service { flex: 1 1 250px; background: #f5f5f5; border-radius: 8px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);}
         .service img { width: 60px; height: 60px; margin-bottom: 15px; }
@@ -18,7 +18,7 @@
             display: inline-block;
             margin-bottom: 25px;
             padding: 12px 28px;
-            background: #d2691e;
+            background: #222;
             color: #fff;
             border: none;
             border-radius: 6px;
@@ -26,11 +26,11 @@
             font-size: 1rem;
             font-weight: bold;
             box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            transition: background 0.2s;
+            transition: background 0.2s, color 0.2s;
         }
         .btn-retour:hover {
-            background: #222;
-            color: #ffa500;
+            background: #d2691e;
+            color: #fff;
         }
         @media (max-width: 700px) {
             .services { flex-direction: column; }
