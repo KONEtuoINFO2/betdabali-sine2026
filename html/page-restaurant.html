@@ -19,16 +19,40 @@
         .add-form input, .add-form button { margin: 0.3rem 0; padding: 0.5rem; border-radius: 5px; border: 1px solid #ddd; width: 100%; }
         .add-form button { background: #ff8800; color: #fff; border: none; font-weight: bold; }
         .hide { display: none; }
+        /* Navbar styles */
+        .main-navbar {
+            background: #fff3e0;
+            padding: 0.7rem 1rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            border-bottom: 1px solid #ffe0b2;
+        }
+        .main-navbar a {
+            color: #ff8800;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .main-navbar a:hover {
+            color: #ff6600;
+            text-decoration: underline;
+        }
+        .main-navbar .nav-spacer {
+            flex: 1;
+        }
     </style>
 </head>
 <body>
-    <nav style="background:#fff3e0; padding:0.7rem 1rem;">
-        <a href="../index.html" style="color:#ff8800; text-decoration:none; font-weight:bold;">&larr; Retour à la page principale</a>
-    </nav>
     <header>
         <h1>Liste des Restaurants</h1>
         <div id="user-info"></div>
     </header>
+    <nav class="main-navbar">
+        <a href="../index.html">Accueil</a>
+        <a href="page-poster-plat.html">Poster un plat</a>
+        <a href="page-restaurant.html">Voir la liste des restaurants existant</a>
+    </nav>
     <div class="container">
         <h2>Restaurants enregistrés</h2>
         <table>
@@ -54,8 +78,6 @@
     </div>
     <script>
         // Simuler l'utilisateur connecté
-        // user = { role: 'admin' } ou { role: 'user' }
-        // Pour tester, changez la valeur de role
         let user = { nom: "Koffi", role: "admin" }; // "admin" ou "user"
 
         // Simuler une liste de restaurants
