@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - Betdabali Sine2026</title>
+    <style>
+        body {
+            background: #fff;
+            color: #111;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background: orange;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 40px 20px;
+            min-height: 60vh;
+        }
+        .btn-retour {
+            display: inline-block;
+            background: #111;
+            color: #fff;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 30px;
+            transition: background 0.2s;
+        }
+        .btn-retour:hover {
+            background: orange;
+            color: #111;
+            border: 1px solid #111;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            border: 2px solid orange;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: orange;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 18px;
+            border: 1px solid #111;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background: orange;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        input[type="submit"]:hover {
+            background: #111;
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contactez-nous</h1>
+    </header>
+    <main>
+        <form>
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <input type="submit" value="Envoyer">
+        </form>
+        <a href="../index.html" class="btn-retour">Retour à la page principale</a>
+    </main>
+    <footer>
+        &copy; 2024 Betdabali Sine2026. Tous droits réservés.
+    </footer>
+</body>
+</html>
