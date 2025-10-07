@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>betdabali-sine2025 - E-commerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --orange: #ff8800;
+            --white: #fff;
+            --black: #222;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: var(--white);
+            color: var(--black);
+        }
+        header {
+            background: var(--orange);
+            color: var(--white);
+            padding: 1rem 0.5rem 0.5rem 0.5rem;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1001;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        header p {
+            margin: 0.2rem 0 0 0;
+            font-size: 1rem;
+        }
+        nav {
+            background: var(--black);
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 70px;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+        nav li {
+            margin: 0 1rem;
+        }
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 1rem 0.5rem;
+            display: block;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: var(--orange);
+        }
+        .container {
+            display: flex;
+            margin-top: 120px;
+            padding: 1rem;
+            gap: 1rem;
+        }
+        aside.left, aside.right {
+            background: #f7f7f7;
+            padding: 1rem;
+            border-radius: 8px;
+            min-width: 220px;
+            max-width: 260px;
+            flex: 1 1 220px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            height: fit-content;
+        }
+        main {
+            flex: 3 1 500px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        /* Left Section */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            background: var(--white);
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            padding: 0.3rem 0.7rem;
+        }
+        .search-bar input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 1rem;
+            background: transparent;
+        }
+        .search-bar i {
+            color: var(--orange);
+            font-size: 1.2rem;
+        }
+        .tops-section {
+            margin-bottom: 1rem;
+        }
+        .tops-section h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--orange);
+        }
+        .tops-section ol, .tops-section ul {
+            margin: 0 0 0 1.2rem;
+            padding: 0;
+        }
+        .tops-section li {
+            margin-bottom: 0.3rem;
+        }
+        .tops-section a {
+            color: var(--black);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        /* Middle Section */
+        .plat-navbar {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            background: #f2f2f2;
+            border-radius: 20px;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+        }
+        .plat-navbar button {
+            background: none;
+            border: none;
+            color: var(--black);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .plat-navbar button.active, .plat-navbar button:hover {
+            background: var(--orange);
+            color: var(--white);
+        }
+        .plats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        .plat-card {
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            overflow: hidden;
+            position: relative;
+            transition: box-shadow 0.2s;
+        }
+        .plat-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        .plat-info {
+            padding: 0.7rem;
+        }
+        .plat-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        .plat-price {
+            color: var(--orange);
+            font-weight: bold;
+            margin-bottom: 0.3rem;
+        }
+        .plat-card button {
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        .plat-hover-details {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            color: var(--white);
+            padding: 1rem;
+            z-index: 2;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .plat-card:hover .plat-hover-details {
+            display: flex;
+        }
+        /* Slides for other plats */
+        .plats-slide {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding-bottom: 0.5rem;
+        }
+        .plats-slide .plat-card {
+            min-width: 220px;
+            max-width: 220px;
+        }
+        /* Right Section (Panier) */
+        .panier-title {
+            font-weight: bold;
+            color: var(--orange);
+            margin-bottom: 0.7rem;
+        }
+        .panier-list {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 0.7rem;
+        }
+        .panier-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+        .panier-total {
+            font-weight: bold;
+            margin-top: 0.7rem;
+        }
+        .panier-btns {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.7rem;
+        }
+        .panier-btns button {
+            flex: 1;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 20px;
+            padding: 0.5rem 0;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 2000;
+        }
+        .whatsapp-float a {
+            background: #25d366;
+            color: #fff;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .container {
+                flex-direction: column;
+            }
+            aside.left, aside.right {
+                max-width: 100%;
+                min-width: 0;
+            }
+        }
+        @media (max-width: 900px) {
+            .plats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 700px) {
+            nav ul {
+                flex-direction: column;
+                background: var(--black);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                display: none;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            nav .menu-toggle {
+                display: block;
+                color: var(--white);
+                font-size: 1.5rem;
+                margin-left: auto;
+                margin-right: 1rem;
+                cursor: pointer;
+            }
+            .container {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+            aside.left {
+                display: none;
+            }
+            .plats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 700px) {
+            .mobile-bottom-menu {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: var(--orange);
+                color: var(--white);
+                justify-content: space-around;
+                align-items: center;
+                padding: 0.7rem 0;
+                z-index: 1002;
+            }
+            .mobile-bottom-menu > div {
+                text-align: center;
+            }
+            .mobile-bottom-menu i {
+                font-size: 1.3rem;
+                margin-bottom: 0.2rem;
+            }
+        }
+        @media (min-width: 701px) {
+            .mobile-bottom-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Bienvenue chez betdabali-sine2025 Afrique +</h1>
+        <p>Chez nous ton dabali c’est notre affaire</p>
+    </header>
+    <!-- Navbar -->
+    <nav>
+        <span class="menu-toggle" style="display:none;"><i class="fas fa-bars"></i></span>
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="./html/page-restaurant.html">Restaurant</a></li>
+            <li><a href="./html/page-publier.html">Plats</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">A propos de nous</a></li>
+            <li><a href="#">Nos services</a></li>
+            <li><a href="#">Connexion</a></li>
+            <li><a href="#">Déconnexion</a></li>
+        </ul>
+    </nav>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Left Section -->
+        <aside class="left">
+            <div class="search-bar">
+                <input type="text" placeholder="Rechercher un plat...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="tops-section" id="top-ivoirien">
+                <h3>Tops des plats ivoirien</h3>
+                <ol>
+                    <li><a href="#plats-nord">Plats du nord</a></li>
+                    <li><a href="#plats-centre">Plats du centre</a></li>
+                    <li><a href="#plats-sud">Plats du sud</a></li>
+                    <li><a href="#plats-ouest">Plats de l’ouest</a></li>
+                    <li><a href="#plats-autre">Autre</a></li>
+                </ol>
+            </div>
+            <div class="tops-section" id="top-africain">
+                <h3>Tops des plats africain</h3>
+                <ul>
+                    <li><a href="#plats-africain-ouest">Afrique de l'ouest</a></li>
+                    <li><a href="#plats-africain-centre">Afrique centrale</a></li>
+                    <li><a href="#plats-africain-est">Afrique de l'est</a></li>
+                    <li><a href="#plats-africain-sud">Afrique du sud</a></li>
+                </ul>
+            </div>
+            <div class="tops-section" id="top-europeen">
+                <h3>Tops des plats europeen</h3>
+                <ul>
+                    <li><a href="#plats-france">France</a></li>
+                    <li><a href="#plats-italie">Italie</a></li>
+                    <li><a href="#plats-espagne">Espagne</a></li>
+                    <li><a href="#plats-autre-europe">Autre</a></li>
+                </ul>
+            </div>
+            <div class="tops-section" id="top-asiatique">
+                <h3>Tops des plats asiatique</h3>
+                <ul>
+                    <li><a href="#plats-chine">Chine</a></li>
+                    <li><a href="#plats-japon">Japon</a></li>
+                    <li><a href="#plats-inde">Inde</a></li>
+                    <li><a href="#plats-autre-asie">Autre</a></li>
+                </ul>
+            </div>
+        </aside>
+        <!-- Middle Section -->
+        <main>
+            <div class="plat-navbar">
+                <button class="active" data-type="petitdej">Petit déj</button>
+                <button data-type="dege">Le déjé</button>
+                <button data-type="diner">Diné</button>
+                <button data-type="gouter">Goûter</button>
+                <button data-type="colation">Colation</button>
+            </div>
+            <!-- Plats grid for petit dej (default) -->
+            <section class="plats-grid" id="plats-petitdej">
+                <!-- Example plat card -->
+                <div class="plat-card">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Attiéké poisson">
+                    <div class="plat-info">
+                        <div class="plat-name">Attiéké poisson</div>
+                        <div class="plat-price">2 500 FCFA</div>
+                        <button class="btn-commander">Commander</button>
+                    </div>
+                    <div class="plat-hover-details">
+                        <div>Nom: Attiéké poisson</div>
+                        <div>Prix: 2 500 FCFA</div>
+                        <div>Région: Sud</div>
+                        <div>Restaurant: Chez Koffi</div>
+                        <div>Période: Petit déjeuner</div>
+                    </div>
+                </div>
+                <div class="plat-card">
+                    <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Bouillie de mil">
+                    <div class="plat-info">
+                        <div class="plat-name">Bouillie de mil</div>
+                        <div class="plat-price">1 000 FCFA</div>
+                        <button class="btn-commander">Commander</button>
+                    </div>
+                    <div class="plat-hover-details">
+                        <div>Nom: Bouillie de mil</div>
+                        <div>Prix: 1 000 FCFA</div>
+                        <div>Région: Nord</div>
+                        <div>Restaurant: Chez Awa</div>
+                        <div>Période: Petit déjeuner</div>
+                    </div>
+                </div>
+                <div class="plat-card">
+                    <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="Pain omelette">
+                    <div class="plat-info">
+                        <div class="plat-name">Pain omelette</div>
+                        <div class="plat-price">800 FCFA</div>
+                        <button class="btn-commander">Commander</button>
+                    </div>
+                    <div class="plat-hover-details">
+                        <div>Nom: Pain omelette</div>
+                        <div>Prix: 800 FCFA</div>
+                        <div>Région: Centre</div>
+                        <div>Restaurant: Chez Marie</div>
+                        <div>Période: Petit déjeuner</div>
+                    </div>
+                </div>
+                <!-- Ajoutez d'autres plats ici -->
+            </section>
+            <!-- Slides for other types -->
+            <section class="plats-slide" id="plats-dege" style="display:none;">
+                <div class="plat-card">
+                    <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80" alt="Riz sauce graine">
+                    <div class="plat-info">
+                        <div class="plat-name">Riz sauce graine</div>
+                        <div class="plat-price">2 000 FCFA</div>
+                        <button class="btn-commander">Commander</button>
+                    </div>
+                    <div class="plat-hover-details">
+                        <div>Nom: Riz sauce graine</div>
+                        <div>Prix: 2 000 FCFA</div>
+                        <div>Région: Ouest</div>
+                        <div>Restaurant: Chez Yao</div>
+                        <div>Période: Déjeuner</div>
+                    </div>
+                </div>
+                <!-- Ajoutez d'autres plats ici -->
+            </section>
+            <section class="plats-slide" id="plats-diner" style="display:none;">
+                <div class="plat-card">
+                    <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Foutou banane">
+                    <div class="plat-info">
+                        <div class="plat-name">Foutou banane</div>
+                        <div class="plat-price">3 000 FCFA</div>
+                        <button class="btn-commander">Commander</button>
+                    </div>
+                    <div class="plat-hover-details">
+                        <div>Nom: Foutou banane</div>
+                        <div>Prix: 3 000 FCFA</div>
+                        <div>Région: Centre</div>
+                        <div>Restaurant: Chez Koffi</div>
+                        <div>Période: Dîner</div>
+                    </div>
+                </div>
+                <!-- Ajoutez d'autres plats ici -->
+            </section>
+            <section class="plats-slide" id="plats-gouter" style="display:none;">
+                <div class="plat-card">
+                    <img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="Beignets sucrés">
+                    <div class="plat-info">
+                        <div class="plat-name">Beignets sucrés</div>
+                        <div class="plat-price">500 FCFA</div>
+                        <button class="btn-commander">Commander</button>
+                    </div>
+                    <div class="plat-hover-details">
+                        <div>Nom: Beignets sucrés</div>
+                        <div>Prix: 500 FCFA</div>
+                        <div>Région: Sud</div>
+                        <div>Restaurant: Chez Marie</div>
+                        <div>Période: Goûter</div>
+                    </div>
+                </div>
+                <!-- Ajoutez d'autres plats ici -->
+            </section>
+            <section class="plats-slide" id="plats-colation" style="display:none;">
+                <div class="plat-card">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Fruits frais">
+                    <div class="plat-info">
+                        <div class="plat-name">Fruits frais</div>
+                        <div class="plat-price">1 200 FCFA</div>
+                        <button class="btn-commander">Commander</button>
+                    </div>
+                    <div class="plat-hover-details">
+                        <div>Nom: Fruits frais</div>
+                        <div>Prix: 1 200 FCFA</div>
+                        <div>Région: Sud</div>
+                        <div>Restaurant: Chez Awa</div>
+                        <div>Période: Colation</div>
+                    </div>
+                </div>
+                <!-- Ajoutez d'autres plats ici -->
+            </section>
+            <!-- Carte GPS -->
+            <section style="margin-top:1rem;">
+                <h3>Notre localisation</h3>
+                <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-4.008256,5.316667,-3.958256,5.366667&amp;layer=mapnik" style="width:100%;height:200px;border:1px solid #ccc;border-radius:8px;"></iframe>
+            </section>
+            <!-- Formulaire d'inscription restaurant -->
+            <section style="margin-top:1rem;">
+                <h3>Inscrire votre restaurant</h3>
+                <form id="form-resto" style="display:flex;flex-direction:column;gap:0.7rem;">
+                    <input type="text" placeholder="Nom du restaurant" required>
+                    <input type="text" placeholder="Nom du propriétaire" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Téléphone" required>
+                    <input type="text" placeholder="Adresse" required>
+                    <textarea placeholder="Description du restaurant" required></textarea>
+                    <button type="submit" style="background:var(--orange);color:var(--white);border:none;border-radius:20px;padding:0.5rem 0;font-weight:600;">S'inscrire</button>
+                </form>
+            </section>
+        </main>
+        <!-- Right Section (Panier) -->
+        <aside class="right">
+            <div class="panier-title">Panier d'achats</div>
+            <div class="panier-list" id="panier-list">
+                <!-- Les plats ajoutés s'affichent ici -->
+            </div>
+            <div class="panier-total" id="panier-total">Total: 0 FCFA</div>
+            <div class="panier-btns">
+                <button id="btn-valider">Valider</button>
+                <button id="btn-caisse">Passer à la caisse</button>
+            </div>
+        </aside>
+    </div>
+    <!-- Menu mobile en bas -->
+    <div class="mobile-bottom-menu">
+        <div><i class="fas fa-bars"></i><br>Menu</div>
+        <div><i class="fas fa-star"></i><br>Tops des plats</div>
+        <div><a href="https://wa.me/2250700000000" target="_blank" style="color:inherit;text-decoration:none;"><i class="fab fa-whatsapp"></i><br>WhatsApp</a></div>
+    </div>
+    <!-- Floating WhatsApp -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/2250700000000" target="_blank" title="Contactez-nous sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 betdabali-sine2025. Tous droits réservés.
+    </footer>
+    <script>
+        // Navbar responsive
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navUl = document.querySelector('nav ul');
+        menuToggle && menuToggle.addEventListener('click', () => {
+            navUl.classList.toggle('active');
+        });
+        function handleResize() {
+            if(window.innerWidth <= 700) {
+                menuToggle && (menuToggle.style.display = 'block');
+                navUl && navUl.classList.remove('active');
+            } else {
+                menuToggle && (menuToggle.style.display = 'none');
+                navUl && navUl.classList.remove('active');
+            }
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        // Plats navbar switch
+        const platNavBtns = document.querySelectorAll('.plat-navbar button');
+        const platsSections = {
+            petitdej: document.getElementById('plats-petitdej'),
+            dege: document.getElementById('plats-dege'),
+            diner: document.getElementById('plats-diner'),
+            gouter: document.getElementById('plats-gouter'),
+            colation: document.getElementById('plats-colation')
+        };
+        function showPlatSection(type) {
+            for(let key in platsSections) {
+                platsSections[key].style.display = (key === type) ? (type === 'petitdej' ? 'grid' : 'flex') : 'none';
+            }
+            platNavBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.type === type));
+        }
+        platNavBtns.forEach(btn => {
+            btn.addEventListener('click', () => showPlatSection(btn.dataset.type));
+        });
+        // Affichage automatique selon l'heure
+        function autoPlatByTime() {
+            const now = new Date();
+            const h = now.getHours(), m = now.getMinutes();
+            if(h >= 4 && (h < 10 || (h === 10 && m <= 30))) {
+                showPlatSection('petitdej');
+            } else if(h >= 10 && h < 15) {
+                showPlatSection('dege');
+            } else if(h >= 15 && h < 19) {
+                showPlatSection('diner');
+            } else if(h >= 19 && h < 22) {
+                showPlatSection('gouter');
+            } else {
+                showPlatSection('colation');
+            }
+        }
+        autoPlatByTime();
+
+        // Panier
+        let panier = [];
+        function updatePanier() {
+            const panierList = document.getElementById('panier-list');
+            const panierTotal = document.getElementById('panier-total');
+            panierList.innerHTML = '';
+            let total = 0;
+            panier.forEach(item => {
+                total += item.prix * item.qte;
+                const div = document.createElement('div');
+                div.className = 'panier-item';
+                div.innerHTML = `<span>${item.nom} (${item.type})</span>
+                    <span>${item.prix} FCFA x ${item.qte}</span>`;
+                panierList.appendChild(div);
+            });
+            panierTotal.textContent = `Total: ${total} FCFA`;
+        }
+        function addToPanier(nom, type, prix) {
+            let found = panier.find(p => p.nom === nom && p.type === type);
+            if(found) found.qte++;
+            else panier.push({nom, type, prix, qte:1});
+            updatePanier();
+        }
+        // Commander button
+        document.querySelectorAll('.btn-commander').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Simuler utilisateur connecté
+                let isConnected = true; // Remplacez par votre logique d'authentification
+                if(!isConnected) {
+                    alert("Veuillez vous connecter pour commander.");
+                    return;
+                }
+                const card = btn.closest('.plat-card');
+                const nom = card.querySelector('.plat-name').textContent;
+                const prix = parseInt(card.querySelector('.plat-price').textContent.replace(/\D/g,''));
+                const type = document.querySelector('.plat-navbar button.active').textContent;
+                addToPanier(nom, type, prix);
+            });
+        });
+        // Passer à la caisse
+        document.getElementById('btn-caisse').addEventListener('click', function() {
+            if(panier.length === 0) {
+                alert("Votre panier est vide.");
+                return;
+            }
+            // Afficher modal de paiement (simplifié)
+            let paiement = prompt("Choisissez votre mode de paiement: orange, mtn, mov, wave");
+            if(paiement) {
+                alert("Commande validée! Vous recevrez un message WhatsApp.");
+                // Simuler envoi WhatsApp
+                window.open('https://wa.me/2250700000000?text=Nouvelle%20commande%20sur%20betdabali-sine2025', '_blank');
+            }
+        });
+        // Scroll vers les sections
+        document.querySelectorAll('.tops-section a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = link.getAttribute('href');
+                if(href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if(target) target.scrollIntoView({behavior:'smooth'});
+                }
+            });
+        });
+        // Mobile menu bottom
+        if(window.innerWidth <= 700) {
+            document.querySelector('.mobile-bottom-menu').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>

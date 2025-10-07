@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Restaurants - betdabali-sine2025</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin:0; background:#fff; color:#222; }
+        header { background: #ff8800; color: #fff; padding: 1rem; text-align: center; }
+        .container { max-width: 900px; margin: 2rem auto; background: #f9f9f9; border-radius: 10px; box-shadow: 0 2px 8px #0001; padding: 2rem; }
+        h2 { color: #ff8800; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.7rem; border-bottom: 1px solid #eee; text-align: left; }
+        th { background: #ff8800; color: #fff; }
+        tr:last-child td { border-bottom: none; }
+        .actions button { margin-right: 0.5rem; background: #ff8800; color: #fff; border: none; border-radius: 5px; padding: 0.3rem 0.8rem; cursor: pointer; }
+        .actions button:last-child { margin-right: 0; }
+        .add-form { margin-top: 2rem; background: #fff; padding: 1rem; border-radius: 8px; box-shadow: 0 1px 4px #0001; }
+        .add-form input, .add-form button { margin: 0.3rem 0; padding: 0.5rem; border-radius: 5px; border: 1px solid #ddd; width: 100%; }
+        .add-form button { background: #ff8800; color: #fff; border: none; font-weight: bold; }
+        .hide { display: none; }
+    </style>
+</head>
+<body>
+    <nav style="background:#fff3e0; padding:0.7rem 1rem;">
+        <a href="../index.html" style="color:#ff8800; text-decoration:none; font-weight:bold;">&larr; Retour à la page principale</a>
+    </nav>
+    <header>
+        <h1>Liste des Restaurants</h1>
+        <div id="user-info"></div>
+    </header>
+    <div class="container">
+        <h2>Restaurants enregistrés</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Propriétaire</th>
+                    <th>Localité</th>
+                    <th class="actions-col">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="resto-list">
+                <!-- Les restaurants seront affichés ici -->
+            </tbody>
+        </table>
+        <form class="add-form hide" id="add-resto-form">
+            <h3>Ajouter un restaurant</h3>
+            <input type="text" id="nom" placeholder="Nom du restaurant" required>
+            <input type="text" id="proprietaire" placeholder="Nom du propriétaire" required>
+            <input type="text" id="localite" placeholder="Localité" required>
+            <button type="submit">Ajouter</button>
+        </form>
+    </div>
+    <script>
+        // Simuler l'utilisateur connecté
+        // user = { role: 'admin' } ou { role: 'user' }
+        // Pour tester, changez la valeur de role
+        let user = { nom: "Koffi", role: "admin" }; // "admin" ou "user"
+
+        // Simuler une liste de restaurants
+        let restaurants = [
+            { nom: "Chez Koffi", proprietaire: "Koffi", localite: "Abidjan" },
+            { nom: "Chez Awa", proprietaire: "Awa", localite: "Bouaké" },
+            { nom: "Chez Marie", proprietaire: "Marie", localite: "Yamoussoukro" }
+        ];
+
+        // Afficher l'utilisateur connecté
+        document.getElementById('user-info').textContent = user.role === 'admin'
+            ? "Connecté en tant qu'administrateur"
+            : "Connecté en tant qu'utilisateur";
+
+        // Afficher la liste des restaurants
+        function renderRestaurants() {
+            const tbody = document.getElementById('resto-list');
+            tbody.innerHTML = '';
+            restaurants.forEach((resto, idx) => {
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${resto.nom}</td>
+                    <td>${resto.proprietaire}</td>
+                    <td>${resto.localite}</td>
+                    <td class="actions-col">
+                        <div class="actions">
+                            ${user.role === 'admin'
+                                ? `<button onclick="deleteResto(${idx})">Supprimer</button>`
+                                : ''}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Supprimer un restaurant (admin seulement)
+        window.deleteResto = function(idx) {
+            if(user.role !== 'admin') return;
+            if(confirm("Voulez-vous vraiment supprimer ce restaurant ?")) {
+                restaurants.splice(idx, 1);
+                renderRestaurants();
+            }
+        };
+
+        // Afficher ou masquer le formulaire d'ajout selon le rôle
+        if(user.role === 'admin') {
+            document.getElementById('add-resto-form').classList.remove('hide');
+        }
+
+        // Ajouter un restaurant (admin seulement)
+        document.getElementById('add-resto-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if(user.role !== 'admin') return;
+            const nom = document.getElementById('nom').value.trim();
+            const proprietaire = document.getElementById('proprietaire').value.trim();
+            const localite = document.getElementById('localite').value.trim();
+            if(nom && proprietaire && localite) {
+                restaurants.push({ nom, proprietaire, localite });
+                renderRestaurants();
+                this.reset();
+            }
+        });
+
+        renderRestaurants();
+    </script>
+</body>
+</html>
