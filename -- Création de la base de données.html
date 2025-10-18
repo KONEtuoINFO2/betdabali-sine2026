@@ -1,0 +1,104 @@
+-- Création de la base de données
+CREATE DATABASE databasedbafrique;
+USE databasedbafrique;
+
+-- Table des clients
+CREATE TABLE client (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100),
+    prenom VARCHAR(100),
+    email VARCHAR(150) UNIQUE,
+    telephone VARCHAR(20),
+    adresse VARCHAR(255),
+    date_inscription DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table des restaurants
+CREATE TABLE restaurant (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(150),
+    adresse VARCHAR(255),
+    telephone VARCHAR(20),
+    email VARCHAR(150),
+    description TEXT
+);
+
+-- Table des utilisateurs (administrateurs, staff, etc.)
+CREATE TABLE utilisateur (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100),
+    prenom VARCHAR(100),
+    email VARCHAR(150) UNIQUE,
+    mot_de_passe VARCHAR(255),
+    role ENUM('admin', 'staff', 'livreur') DEFAULT 'staff'
+);
+
+-- Table des plats
+CREATE TABLE plats (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(150),
+    description TEXT,
+    prix DECIMAL(10,2),
+    restaurant_id INT,
+    image_url VARCHAR(255),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)
+);
+
+-- Table des commandes
+CREATE TABLE commande (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT,
+    date_commande DATETIME DEFAULT CURRENT_TIMESTAMP,
+    statut ENUM('en_attente', 'en_cours', 'livree', 'annulee') DEFAULT 'en_attente',
+    montant_total DECIMAL(10,2),
+    FOREIGN KEY (client_id) REFERENCES client(id)
+);
+
+-- Table de liaison commande_plats (plusieurs plats par commande)
+CREATE TABLE commande_plats (
+    commande_id INT,
+    plat_id INT,
+    quantite INT DEFAULT 1,
+    PRIMARY KEY (commande_id, plat_id),
+    FOREIGN KEY (commande_id) REFERENCES commande(id),
+    FOREIGN KEY (plat_id) REFERENCES plats(id)
+);
+
+-- Table des réservations
+CREATE TABLE reservation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT,
+    restaurant_id INT,
+    date_reservation DATETIME,
+    nombre_personnes INT,
+    statut ENUM('confirmee', 'annulee', 'en_attente') DEFAULT 'en_attente',
+    FOREIGN KEY (client_id) REFERENCES client(id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)
+);
+
+-- Table des avis (optionnelle, pour les retours clients)
+CREATE TABLE avis (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT,
+    restaurant_id INT,
+    note INT CHECK (note >= 1 AND note <= 5),
+    commentaire TEXT,
+    date_avis DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (client_id) REFERENCES client(id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurant(id)
+);
+
+-- Table des catégories de plats (optionnelle)
+CREATE TABLE categorie_plat (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100)
+);
+
+-- Table de liaison plats-catégorie
+CREATE TABLE plat_categorie (
+    plat_id INT,
+    categorie_id INT,
+    PRIMARY KEY (plat_id, categorie_id),
+    FOREIGN KEY (plat_id) REFERENCES plats(id),
+    FOREIGN KEY (categorie_id) REFERENCES categorie_plat(id)
+);
